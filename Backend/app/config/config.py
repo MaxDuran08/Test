@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    MYSQL_HOST = os.environ["MYSQL_HOST"]
-    MYSQL_USER = os.getenv("MYSQL_USER")
-    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-    MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
-    MYSQL_PORT = os.getenv("MYSQL_PORT")
+    MYSQL_HOST = os.environ["MYSQL_HOST", "localhost"]
+    MYSQL_USER = os.getenv("MYSQL_USER", "root")
+    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "root")
+    MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "test_db")
+    MYSQL_PORT = os.getenv("MYSQL_PORT", 3306)
     FLASK_RUN_PORT = os.getenv("FLASK_RUN_PORT")
     FLASK_DEBUG = os.getenv("FLASK_DEBUG")
 

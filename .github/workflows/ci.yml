@@ -1,0 +1,76 @@
+name: CI - Backend + Frontend + MySQL
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_pass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # BACKEND SETUP
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Crear estructura de la base de datos
+      run: |
+        sudo apt-get update && sudo apt-get install -y mysql-client
+        mysql -h 127.0.0.1 -P 3306 -u test_user -ptest_pass test_db < ./database/init.sql
+
+    - name: Run backend tests
+      working-directory: ./backend
+      env:
+        MYSQL_HOST: 127.0.0.1
+        MYSQL_USER: test_user
+        MYSQL_PASSWORD: test_pass
+        MYSQL_DATABASE: test_db
+        MYSQL_PORT: 3306
+      run: |
+        pytest
+
+    # FRONTEND SETUP
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: |
+        npm install
+
+    - name: Run frontend tests
+      working-directory: ./frontend
+      run: |
+        npm test -- --watchAll=false
+

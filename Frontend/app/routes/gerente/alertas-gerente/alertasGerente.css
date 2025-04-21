@@ -1,0 +1,100 @@
+/* Estilos para el contenedor principal */
+.alertas-gerente {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #393841;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos para los encabezados */
+  .alertas-gerente h1 {
+    font-size: 30px;
+    color: #fcfcfc;
+    margin-bottom: 20px;
+  }
+  
+  .alertas-gerente h2 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para los formularios */
+  .alertas-gerente form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .alertas-gerente form label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .alertas-gerente form input[type="number"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100px;
+  }
+  
+  .alertas-gerente form button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .alertas-gerente form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para la sección de alertas */
+  .alertas-gerente ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .alertas-gerente li {
+    background-color: #ff0000;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-left: 5px solid #ffdddd;
+  }
+  
+  .alertas-gerente p {
+    color: #ffffff;
+  }
+
+  .reset-button{
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+
+  .reset-button button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 600px) {
+    .alertas-gerente form {
+      flex-direction: column;
+    }
+  
+    .alertas-gerente form input[type="number"] {
+      width: 100%;
+    }
+  }

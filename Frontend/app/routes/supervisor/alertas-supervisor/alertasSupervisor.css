@@ -1,0 +1,63 @@
+/* Estilos para el contenedor principal */
+.alertas-supervisor {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #393841;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el encabezado */
+.alertas-supervisor h1 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Estilos para la lista de alertas */
+.alertas-supervisor ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilos para cada alerta */
+.alertas-supervisor li {
+  background-color: #ff0000; /* Fondo rojo claro para alertas */
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  font-size: 1.1em;
+  color: #ffffff;
+}
+
+/* Efecto al pasar el ratón */
+.alertas-supervisor li:hover {
+  transform: scale(1.02);
+}
+
+/* Estilos para el mensaje cuando no hay alertas */
+.alertas-supervisor p {
+  text-align: center;
+  color: #28a745; /* Verde para indicar que todo está bien */
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+  .alertas-supervisor {
+    padding: 10px;
+  }
+
+  .alertas-supervisor h1 {
+    font-size: 1.5em;
+  }
+
+  .alertas-supervisor li {
+    font-size: 1em;
+  }
+}

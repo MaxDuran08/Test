@@ -45,7 +45,7 @@ jobs:
     - name: Crear estructura de la base de datos
       run: |
         sudo apt-get update && sudo apt-get install -y mysql-client
-        mysql -h 127.0.0.1 -P 3306 -u test_user -ptest_pass test_db < ./Database/init.sql
+        mysql -h 127.0.0.1 -P 3306 -u test_user -ptest_pass test_db < ./DataBase/init.sql
 
     - name: Run backend tests
       working-directory: ./Backend

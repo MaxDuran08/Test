@@ -1,6 +1,10 @@
 import pytest
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
 from app import create_app
-from app.db.bd import get_db_connection
+from app.db import db_singleton 
 
 @pytest.fixture(scope="session")
 def app():
@@ -14,9 +18,9 @@ def client(app):
 
 @pytest.fixture(scope="function")
 def db():
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    connection =  db_singleton.get_connection()
+    cursor = connection.cursor()
     yield cursor
     # Limpieza después de cada test (si querés reiniciar estado)
-    conn.commit()
+    connection.commit()
     cursor.close()

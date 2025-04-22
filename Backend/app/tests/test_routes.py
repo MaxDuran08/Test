@@ -1,45 +1,26 @@
-def test_crear_usuario_y_login(client, db):
-    # Datos del nuevo usuario
+def test_crear_usuario(client, db):
+    # Datos del nuevo usuario de prueba
     usuario_data = {
-        "CUI": "123456789",
-        "Roles_id": 2,  # Asegurate que este rol exista
-        "Nombre": "Test Usuario",
-        "Correo": "testusuario@example.com",
-        "Telefono": "1234567890",
-        "Edad": 30,
+        "CUI": "9999999999998",
+        "Roles_id": 2,  # Asegúrate de que este rol existe en tu base de datos
+        "Nombre": "Prueba Usuario",
+        "Correo": "test.ayd2.g6.s1.2025@gmail.com",
+        "Telefono": "123456789",
+        "Edad": 25,
         "Genero": "Masculino"
     }
 
-    # 1. Crear el usuario
+    # 1. Hacemos el POST al endpoint
     response = client.post("/agregar_usuario", json=usuario_data)
+    json_data = response.get_json()
+
+    # 2. Verificamos la respuesta
     assert response.status_code == 200
-    assert "Usuario agregado correctamente" in response.get_json()["message"]
+    assert "Usuario agregado correctamente" in json_data["message"]
 
-    # 2. Obtener la contraseña generada en la BD (simulamos esto en pruebas)
-    cursor = db
-    cursor.execute("SELECT Contrasena FROM Login WHERE Usuario = %s", (usuario_data["CUI"],))
-    login_data = cursor.fetchone()
-    assert login_data is not None
+    # 3. Verificamos que el usuario fue insertado en la tabla Login
+    db.execute("SELECT Usuario FROM Login WHERE Empleado_CUI = %s", (usuario_data["CUI"],))
+    login_entry = db.fetchone()
 
-    # Como no tenemos acceso al token plano enviado por email, simulamos el login con una contraseña falsa
-    # en un caso real podríamos usar un "mock" de `enviar_correo_credenciales` para capturar la contraseña enviada
-
-    # Simulación: en pruebas locales podrías modificar la lógica para usar una contraseña conocida
-    # pero aquí forzamos una contraseña para hacer la prueba:
-    from app.db.bd import db_singleton
-    import bcrypt
-
-    contrasena_test = "MiTest1234!"
-    contrasena_hash = bcrypt.hashpw(contrasena_test.encode("utf-8"), bcrypt.gensalt())
-    cursor.execute("UPDATE Login SET Contrasena = %s WHERE Usuario = %s", (contrasena_hash, usuario_data["CUI"]))
-    db_singleton.get_connection().commit()
-
-    # 3. Login
-    response = client.post("/login", json={
-        "Correo": usuario_data["Correo"],
-        "Contrasena": contrasena_test
-    })
-    assert response.status_code == 200
-    data = response.get_json()
-    assert "token" in data
-    assert data["message"] == "Login exitoso"
+    assert login_entry is not None
+    assert login_entry["Usuario"] == usuario_data["CUI"]

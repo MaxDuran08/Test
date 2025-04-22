@@ -21,6 +21,5 @@ def db():
     connection =  db_singleton.get_connection()
     cursor = connection.cursor()
     yield cursor
-    # Limpieza después de cada test (si querés reiniciar estado)
     connection.commit()
     cursor.close()

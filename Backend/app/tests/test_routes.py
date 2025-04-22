@@ -7,6 +7,8 @@ def test_login_admin(client):
 
     response = client.post("/login", json=usuario_data)
     json_data = response.get_json()
+    print("STATUS:", response.status_code)
+    print("BODY:", response.data)
 
     assert response.status_code == 200
     assert "Login exitoso" in json_data["message"]
@@ -20,6 +22,8 @@ def test_login_supervisor(client):
 
     response = client.post("/login", json=usuario_data)
     json_data = response.get_json()
+    print("STATUS:", response.status_code)
+    print("BODY:", response.data)
 
     assert response.status_code == 200
     assert "Login exitoso" in json_data["message"]
@@ -32,6 +36,8 @@ def test_login_empleado(client):
 
     response = client.post("/login", json=usuario_data)
     json_data = response.get_json()
+    print("STATUS:", response.status_code)
+    print("BODY:", response.data)
 
     assert response.status_code == 200
     assert "Login exitoso" in json_data["message"]

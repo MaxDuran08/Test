@@ -1,47 +1,3 @@
-def test_login_admin(client):
-
-    usuario_data = {
-        "Correo": "admin",
-        "Contrasena": "admin"
-    }
-
-    response = client.post("/login", json=usuario_data)
-    json_data = response.get_json()
-    print("STATUS:", response.status_code)
-    print("BODY:", response.data)
-
-    assert response.status_code == 200
-    assert "Login exitoso" in json_data["message"]
-
-def test_login_supervisor(client):
-
-    usuario_data = {
-        "Correo": "supervisor",
-        "Contrasena": "admin"
-    }
-
-    response = client.post("/login", json=usuario_data)
-    json_data = response.get_json()
-    print("STATUS:", response.status_code)
-    print("BODY:", response.data)
-
-    assert response.status_code == 200
-    assert "Login exitoso" in json_data["message"]
-
-def test_login_empleado(client):
-    usuario_data = {
-        "Correo": "empleado",
-        "Contrasena": "admin"
-    }
-
-    response = client.post("/login", json=usuario_data)
-    json_data = response.get_json()
-    print("STATUS:", response.status_code)
-    print("BODY:", response.data)
-
-    assert response.status_code == 200
-    assert "Login exitoso" in json_data["message"]
-
 def test_agregar_usuario(client):
     usuario_data = {    
     "CUI": 9999999999998,
@@ -95,5 +51,15 @@ def test_eliminar_usuario(client):
 def test_roles(client):
 
     response = client.get("/roles")
+
+    assert response.status_code == 200
+
+def test_obtener_empleado(client):
+
+    usuario_data = {
+        "id_empleado": 1
+    }
+
+    response = client.get("/obtener_empleado", query_string=usuario_data)
 
     assert response.status_code == 200

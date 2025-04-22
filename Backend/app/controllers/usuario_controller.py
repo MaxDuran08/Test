@@ -396,7 +396,7 @@ def login():
         payload = {
             "id": user_id,
             "tipo": user_type,
-            "exp": datetime.utcnow() + timedelta(hours=2)
+            "exp": int((datetime.utcnow() + timedelta(hours=2)).timestamp())
         }
 
         if user_role:

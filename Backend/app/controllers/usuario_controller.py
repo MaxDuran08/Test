@@ -384,7 +384,12 @@ def login():
             user_id = cui  # Para los empleados usamos el cui como "id"
 
         # Verificar contraseña
-        if not bcrypt.checkpw(data["Contrasena"].encode('utf-8'), hashed_password.encode('utf-8')):
+        if isinstance(hashed_password, str):
+            hashed_bytes = hashed_password.encode('utf-8')
+        else:
+            hashed_bytes = hashed_password
+
+        if not bcrypt.checkpw(data["Contrasena"].encode('utf-8'), hashed_bytes):
             return jsonify({"error": "Contraseña incorrecta"}), 401
 
         # Generar token
@@ -498,7 +503,7 @@ def verificar_lista_deseos():
     Los datos se reciben en formato JSON con el idCliente.
     """
     data = request.get_json()
-    id_cliente = data.get("idCliente")
+    id_cliente = data.get(" ")
 
     if not id_cliente:
         return jsonify({"error": "Se requiere idCliente"}), 400

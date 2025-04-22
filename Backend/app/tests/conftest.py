@@ -15,11 +15,3 @@ def app():
 @pytest.fixture(scope="session")
 def client(app):
     return app.test_client()
-
-@pytest.fixture(scope="function")
-def db():
-    connection =  db_singleton.get_connection()
-    cursor = connection.cursor()
-    yield cursor
-    connection.commit()
-    cursor.close()

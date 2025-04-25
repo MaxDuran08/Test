@@ -1,4 +1,4 @@
-name: CI - Backend + Frontend + MySQL
+name: CI CD - Backend + Frontend + MySQL
 
 on:
   push:
